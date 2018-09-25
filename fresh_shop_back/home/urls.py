@@ -9,5 +9,5 @@ urlpatterns = [
     # index页面
     url(r'^index/', login_required(views.index), name='index'),
     # 登出页面
-    url(r'^logout/', views.logout, name='logout'),
+    url(r'^logout/', login_required(views.logout), name='logout'),
 ]

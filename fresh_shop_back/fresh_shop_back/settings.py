@@ -131,3 +131,6 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = '/home/login/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/Users/havenyoung/obj_django/media'
