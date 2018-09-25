@@ -1,0 +1,42 @@
+
+{% extends 'base_main.html' %}
+
+{% block title %}
+    学生信息界面
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>age</td>
+            <td>create time</td>
+            <td>last operated time</td>
+            <td>chinese</td>
+            <td>math</td>
+            <td>stu info id</td>
+            <td>grade id</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.s_name }}</td>
+        <td>{{ student.s_age }}</td>
+        <td>{{ student.create_time|date:'Y-m-d H:i:s' }}</td>
+        <td>{{ student.operate_time }}</td>
+        <td>{{ student.chinese }}</td>
+        <td>{{ student.math }}</td>
+        <td>{{ student.stu_info_id }}</td>
+        <td>{{ student.g_id }}</td>
+        <td>
+            <a href="{% url 'app:del_stu' student.id %}">删除</a>
+            <a href="{% url 'app:index' %}">返回</a>
+{#            <a href="http://127.0.0.1:8000/app/stu">返回</a>#}
+        </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

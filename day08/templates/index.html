@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+
+{#用户对象#}
+{{ user }}
+
+{#权限对象#}
+{{ perms }}
+
+{#全部权限#}
+{{ perms.users }}
+
+{#判断单个权限是否存在#}
+{{ perms.users.change_myuser_username }}
+
+{% if perms.users.change_myuser_username %}
+<p>添加用户</p>
+{% endif %}
+<p>删除用户</p>
+
+{% if perms.update_user %}
+<p>修改用户</p>
+{% endif %}
+<p>修改用户名</p>
+<p>修改密码</p>
+
+</body>
+</html>

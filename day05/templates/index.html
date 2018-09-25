@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="{% static 'js/test.js' %}"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div></div>
+<p>国庆套</p>
+<h2>你好</h2>
+{{ students }}
+
+<table>
+    <thead>
+        <tr>
+            <td>序号</td>
+            <td>id</td>
+            <td>name</td>
+            <td>age</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for stu in students %}
+        <tr>
+{#            {{ forloop. counter }}表示当前是第几次循环，从1开始#}
+{#            {{ forloop. countere }}表示当前从第几次循环，从0开始#}
+{#            {{forloop. revcounter}}表示当前是第几次循环，倒着数数，到1停#}
+{#            {{forloop. reJcounter0}}表示当前是第几次循环，倒着数数，到0停#}
+{#            {{forloop. first}}是否是第一个#}
+{#            布尔值#}
+{#            {{forloop. last}}是否是最后一个#}
+{#            布尔值#}
+            <td>{{ forloop.counter }}</td>
+            <td {% ifequal stu.s_name "jerry" %} style="color: yellow" {% endifequal %}>
+                {{ stu.id }}
+            </td>
+            <td {% if stu.id == 2 %} style="color: aqua" {% endif %}>
+                {{ stu.s_name }}
+            </td>
+            <td>{{ stu.s_age }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
