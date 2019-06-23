@@ -2,6 +2,22 @@
 
 {% extends 'base_main.html' %}
 
+{% block js %}
+    {{ block.super }}
+    {% load static %}
+{#    <script type="text/javascript" src="{% static '/static/kindeditor/kindeditor-all.js' %}"></script>#}
+    <script type="text/javascript" src="{% static '/kindeditor/kindeditor-all.js' %}"></script>
+    <script type="text/javascript" src="{% static '/kindeditor/lang/zh-CN.js' %}"></script>
+{#    <script type="text/javascript" src="{% static '/kindeditor/lang/zh-CN.js' %}"></script>#}
+    <script type="text/javascript">
+        KindEditor.ready(function(K) {
+                window.editor = K.create('#editor_id',{
+                    uploadJson:'/util/upload/kindeditor'
+                });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
 <section class="rt_wrap">
 
@@ -12,13 +28,14 @@
 {#            <a class="fr top_rt_btn" href="/goods/goods_list/">返回商品列表</a>#}
         </div>
         <form action="" method="post" enctype="multipart/form-data">
-            <input type='hidden' name='csrfmiddlewaretoken' value='QuPi2QUuEhlKchGijsQULGJKUZO6bOJacZPtDzGnIfWv89lLhtnbVM2EVRxtAXCJ' />
+            {% csrf_token %}
             <section>
                 <ul class="ulColumn2">
                     <li>
                         <span class="item_name" style="width:120px;">产品详情：</span>
+                        <br>
                         <label style="display:inline-block;padding:15px;background:#f8f8f8;">
-                            <textarea id="editor_id" name="content" style="width:700px;"></textarea>
+                            <textarea id="editor_id" name="content" style="width:700px;">{{ good.goods_desc }}</textarea>
                         </label>
                     </li>
                     <li>

@@ -30,17 +30,27 @@
                         <span class="item_name" style="width:120px;">分类：</span>
                         <select class="select" name="category" >
                             
-                                <option value="1">新鲜水果</option>
-                            
-                                <option value="2">海鲜水产</option>
-                            
-                                <option value="3">猪牛羊肉</option>
-                            
-                                <option value="4">禽类蛋品</option>
-                            
-                                <option value="5">新鲜蔬菜</option>
-                            
-                                <option value="6">速冻食品</option>
+{#                                <option value="1">新鲜水果</option>#}
+{#                            #}
+{#                                <option value="2">海鲜水产</option>#}
+{#                            #}
+{#                                <option value="3">猪牛羊肉</option>#}
+{#                            #}
+{#                                <option value="4">禽类蛋品</option>#}
+{#                            #}
+{#                                <option value="5">新鲜蔬菜</option>#}
+{#                            #}
+{#                                <option value="6">速冻食品</option>#}
+                                {% for type in category_type %}
+                                    <option
+                                            value="{{ type.0 }}"
+                                            {% ifequal type.0 good.category.category_type %}
+                                            selected="selected"
+                                            {% endifequal %}
+                                    >
+                                        {{ type.1 }}
+                                    </option>
+                                {% endfor %}
                             
                         </select>
                         
@@ -67,7 +77,7 @@
                     </li>
                     <li>
                         <span class="item_name" style="width:120px;">上传商品首图：</span>
-                        
+                        <img src="/media/{{ good.goods_front_image }}">
                         <label class="uploadImg">
                              <input type="file" name="goods_front_image"/>
                              <span>上传图片</span>

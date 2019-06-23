@@ -9,7 +9,7 @@ urlpatterns = [
     # 商品分类列表
     url(r'^goods_category_list/', login_required(views.goods_category_list), name='goods_category_list'),
     # 排序
-    url(r'^goods_desc/', login_required(views.goods_desc), name='goods_desc'),
+    url(r'^goods_desc/(?P<goods_id>\d+)/', login_required(views.goods_desc), name='goods_desc'),
     # 商品详情
     url(r'^goods_detail/(?P<goods_id>\d+)/', login_required(views.goods_detail), name='goods_detail'),
     # 商品列表

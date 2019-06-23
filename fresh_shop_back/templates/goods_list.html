@@ -28,7 +28,7 @@
                     <td class="center">{{ good.name }}</td>
                     <td class="center">
                         {% for type in category_type %}
-                            {% ifequal good.category_id type.0 %}
+                            {% ifequal good.category.category_type type.0 %}
                                     {{ type.1 }}
                             {% endifequal %}
                         {% endfor %}
@@ -38,26 +38,78 @@
                     <td class="center"><strong class="rmb_icon">{{ good.shop_price }}</strong></td>
                     <td class="center">{{ good.goods_nums }}</td>
                     <td class="center">
-                        <a href="goods_desc.html">{{ good.goods_brief }}</a>
+                        <a href="{% url 'goods:goods_desc' good.id %}">{{ good.name }}详情</a>
+{#                        <a href="{% url 'goods:goods_desc' good.id %}">{{ good.name }}详情{{ good.goods_desc|safe }}</a>#}
                     </td>
                     <td class="center">
                         <a href="{% url 'goods:goods_detail' good.id %}" title="编辑" class="link_icon">&#101;</a>
-                        <a href="{% url 'goods:goods_delete' good.id %}" title="删除" class="link_icon">&#100;</a>
+{#                        <a href="{% url 'goods:goods_delete' good.id %}" title="删除" class="link_icon">&#100;</a>#}
+                        <a onclick="goods_delete({{ good.id }});" title="删除" class="link_icon">&#100;</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
+
+{#        {% csrf_token %}#}
+{#        <script>#}
+{##}
+{#            function goods_delete(id) {#}
+{#                var csrf = $('input[name="csrfmiddlewaretoken]').val()#}
+{#                $.ajax({#}
+{#                    url: '/goods/goods_delete/' + id + '/',#}
+{#                    type: 'POST',#}
+{#                    dataType: 'json',#}
+{#                    headers: {'X-CSRFToken': csrf},#}
+{#                    success: function (data) {#}
+{#                        if(data.code == '200'){#}
+{#                            alert('success')#}
+                            {#location.reload()#}
+{#                            location.href = '/goods/goods_list'#}
+{#                        }#}
+{#                    },#}
+{#                    error: function (data) {#}
+{#                        alert('请求失败')#}
+{#                    }#}
+{#                })#}
+{#            }#}
+{#        </script>#}
+    {% csrf_token %}
+    <script>
+        function goods_delete(id) {
+            var csrf = $('input[name = "csrfmiddlewaretoken"]').val()
+            $.ajax({
+                url:'/goods/goods_delete/'+id+'/',
+                type:'POST',
+                dataType:'json',
+                headers:{'X-CSRFToken':csrf},
+                success:function (data) {
+                    if (data.code == '200'){
+                        location.href = '/goods/goods_list'
+                    }
+
+                },
+                error:function (data) {
+                    alert('请求失败')
+                }
+            })
+        }
+
+    </script>
         <aside class="paging">
-            <a>当前1页</a>
-            <a href="">第一页</a>
+            <a style="float: left">当前第{{ goods.number }}页</a>
+            <a href="{% url 'goods:goods_list' %}?page=1">第一页</a>
+            {% for i in goods.paginator.page_range %}
+                <a href="{% url 'goods:goods_list' %}?page={{ i }}"> {{ i }} </a>
+            {% endfor %}
+
+            {% if goods.has_previous %}
+                <a href="{% url 'goods:goods_list' %}?page={{ goods.previous_page_number }}">上一页</a>
+            {% endif %}
+            {% if goods.has_next %}
+                <a href="{% url 'goods:goods_list' %}?page={{ goods.next_page_number }}">下一页</a>
+            {% endif %}
             
-                <a href=""> 1 </a>
-            
-                <a href=""> 2 </a>
-            
-                <a href=""> 3 </a>
-            
-            <a href="">最后一页</a>
+            <a href="{% url 'goods:goods_list' %}?page={{ goods.paginator.num_pages }}">最后一页</a>
         </aside>
     </div>
 </section>

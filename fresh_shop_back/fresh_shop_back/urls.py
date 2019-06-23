@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import static
 
 from fresh_shop_back import settings
+from utils.upload_images import upload_image
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,5 +26,7 @@ urlpatterns = [
     url(r'^order/', include('order.urls', namespace='order')),
     url(r'^goods/', include('goods.urls', namespace='goods')),
     url(r'^shopping/', include('shopping.urls', namespace='shopping')),
+    # 编辑器中图片保存
+    url(r'^util/upload/(?P<dir_name>[^/]+)$', upload_image, name='upload_image'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
