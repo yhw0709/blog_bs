@@ -18,7 +18,7 @@ class UserAuthMiddleware(MiddlewareMixin):
             '/users/login/',
             '/users/is_login/',
             '/users/logout/',
-	    '/users/register/',
+            '/users/register/',
             '/shopping/cart/',
             '/shopping/show_cart/',
             '/shopping/f_price/',
